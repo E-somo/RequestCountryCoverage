@@ -138,16 +138,16 @@ span.pswCTR{
 
     <div class="containerCTR">
     <br>
-      <label id="titlereq"for="uname"><b>Your country is not supported by our Platform</b> <br>  please send a request for admission of your area <br> <br> write down your country</label>
+      <label id="titlereq"for="uname"><b>Your country is not supported by our Platform(Igihugu murimo ntabwo platfom yacu ihagera)</b> <br>  please send a request for admission of your area( Andika ubusabe maze tucyongere mu bihugu tugeramo) <br> <br> write down your country (Andika igihugu urimo)</label>
       <input type="text" id="pays"placeholder="Enter your country" name="uname" required>
 
-      <label for="psw"><b>Enter your E-mail </b></label>
+      <label for="psw"><b>Enter your E-mail( Imeli yanyu) </b></label>
       <input type="text" id="mail" placeholder="Enter E-mal here" name="psw" required>
       
-       <label for="psw"><b>Enter your phone number with international code </b></label>
+       <label for="psw"><b>Enter your phone number with international code(Telefone yanyu na code y'igihugu) </b></label>
       <input type="text" id="rqph" placeholder="Enter your phone here" name="psw" required>
        
-       <label for="psw"><b>Enter your message of interrest in our services </b></label>
+       <label for="psw"><b>Enter your message of interrest in our services(Ubutumwa busobanura impamvu mwifuje serivice zacu) </b></label>
        <br>
       <textarea  maxlength="160"  rows="4"  id="rqsttxt" name="entry.115509672" ></textarea>
       
@@ -186,7 +186,7 @@ var field1=fullinfo;
 						{
 
 
-              alert('it is ok up  to here');
+              alert('Request Well sent  Ubusabe bwoherejwe neza');
               
               localStorage.setItem("lastcountry", "saved2");
               document.getElementById('sendrqst').style.display='none'
@@ -214,9 +214,9 @@ var rslt ="";
        rslt=result.datetime;
        rslt2=result.timezone;
       
-      alert(rslt);
-      alert(rslt2);
-      alert("date and offset\n"+rslt+"\n"+result.utc_offset+"\n zoning \n"+rslt2);
+      //alert(rslt);
+      //alert(rslt2);
+     // alert("date and offset\n"+rslt+"\n"+result.utc_offset+"\n zoning \n"+rslt2);
       
       fullinfo="date and offset\n"+rslt+"\n"+result.utc_offset+"\n zoning \n"+rslt2;
       
