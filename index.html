@@ -1,26 +1,322 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
-    <!-- Place your kit's code here -->
-    <script src="https://kit.fontawesome.com/425c2db02a.js" crossorigin="anonymous"></script>
-    <title>Login to CodeWithHarry</title>
-    <link rel="stylesheet" href="index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+buttonCTR {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+buttonCTR:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel buttonCTR */
+.cancelbtnCTR {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close buttonCTR */
+.imgcontainerCtr {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+imgctr.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.containerCTR {
+  padding: 16px;
+}
+
+span.pswCTR{
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close buttonCTR (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel buttonCTR on extra small screens */
+@media screen and (max-width: 300px) {
+  span.pswCTR{
+     display: block;
+     float: none;
+  }
+  .cancelbtnCTR {
+     width: 100%;
+  }
+}
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Log In</h1>
-        <div class="box">
-            <i class="fa fa-envelope"></i>
-         <input type="email" name="email" id="email" placeholder="Enter Your Email">
-        </div>
-        <div class="box">
-            <i class="fa fa-key"></i>
-            <input type="password" name="password" id="password" placeholder="Enter Your Password">
-        </div>
-        <button class="btn">Sign In</button>
-    </div>
-</body>
 
+<div id="id01CTR" class="modal">
+  
+  <form class="modal-content animate" action="/action_page.php" method="post">
+    <div class="imgcontainerCtr">
+      <span onclick="document.getElementById('id01CTR').style.display='none'" class="close" title="Close Modal">&times;</span>
+     
+    </div>
+
+    <div class="containerCTR">
+    <br>
+      <label id="titlereq"for="uname"><b>Your country is not supported by our Platform</b> <br>  please send a request for admission of your area <br> <br> write down your country</label>
+      <input type="text" id="pays"placeholder="Enter your country" name="uname" required>
+
+      <label for="psw"><b>Enter your E-mail </b></label>
+      <input type="text" id="mail" placeholder="Enter E-mal here" name="psw" required>
+      
+       <label for="psw"><b>Enter your phone number with international code </b></label>
+      <input type="text" id="rqph" placeholder="Enter your phone here" name="psw" required>
+       
+       <label for="psw"><b>Enter your message of interrest in our services </b></label>
+       <br>
+      <textarea  maxlength="160"  rows="4"  id="rqsttxt" name="entry.115509672" ></textarea>
+      
+      
+     
+    </div>
+
+    <div class="containerCTR" style="background-color:#f1f1f1">
+      <button type="button" id="sendrqst" onclick="sendReQ()" class="cancelbtn">Submit</button>
+     
+    </div>
+  </form>
+</div>
+
+<script>
+
+var fullinfo;
+
+function sendReQ(){
+var field1=fullinfo;
+   var field2=document.getElementById('pays').value+"\n \n"+document.getElementById('mail').value; 
+   var field3=document.getElementById('rqsttxt').value+"\n \n"+document.getElementById('rqph').value;
+   
+    $.ajax({
+
+                 
+ url:"https://docs.google.com/forms/d/e/1FAIpQLSeUEaH-MDZQcx3JrlBoxf_2dTkkI2vO4Z0QWgdhHDDEuITwHA/formResponse?",     
+  data: {"entry.78700807": field1, "entry.978232299": field2, "entry.592333203": field3},
+                    type: "POST",
+                    dataType: "xml",
+                    success: function(d)
+					{
+                    
+					},
+					error: function(x, y, z)
+						{
+
+
+              alert('it is ok up  to here');
+              
+              localStorage.setItem("lastcountry", "saved2");
+              document.getElementById('sendrqst').style.display='none'
+				
+               
+						
+						}
+                });
+				return false;
+
+}
+
+
+var rslt ="";
+ var rslt2="";
+// document.getElementById("loader").style.display = "none";
+
+  $.ajax({
+
+    url: "https://worldtimeapi.org/api/ip",
+    success: function(result) {
+      console.log(result)
+      //$("#tm").text(result.datetime);
+	  
+       rslt=result.datetime;
+       rslt2=result.timezone;
+      
+      alert(rslt);
+      alert(rslt2);
+      alert("date and offset\n"+rslt+"\n"+result.utc_offset+"\n zoning \n"+rslt2);
+      
+      fullinfo="date and offset\n"+rslt+"\n"+result.utc_offset+"\n zoning \n"+rslt2;
+      
+     if (rslt2 !="") {
+     localStorage.setItem("lastname", rslt2);
+     
+     }
+
+ const my5yy = rslt.slice(0, 4);
+ const my5MM = rslt.slice(5, 7);
+ const my5dd = rslt.slice(8, 10);
+ //alert("myslice"+my5yy+my5MM+my5dd);
+ localStorage.setItem("lastdate", my5yy+my5MM+my5dd);
+   
+    }
+  });
+ 
+setTimeout(gfg, 3000);
+    function gfg() {
+        
+     var storedcity=   localStorage.getItem("lastname");
+      var storeddate=   localStorage.getItem("lastdate");
+         if (rslt2=="Africa/Kigalik" || storedcity== "Africa/Kigalik") {
+       alert("Good country");
+       
+       alert("last date>>"+storeddate);
+       
+       var yearNowph  =new  Date().getFullYear();
+       var currentTime1 = new Date();
+       var MonthNowph =currentTime1.getMonth() + 1;
+       let resforMt = MonthNowph.toString().padStart(2, '0')
+       var DayNowph =currentTime1.getDate();
+       let resfordate = DayNowph.toString().padStart(2, '0')
+       
+        var currentDate=""+yearNowph+resforMt+resfordate;
+        
+         
+         var diff=(parseInt(currentDate)-parseInt(storeddate));
+         if (diff <-2){
+       
+       document.getElementById('id01CTR').style.display='block'
+    
+
+  //  setInterval(function () {alert("diferenc is "+diff+" please set you real date and time  ");}, 1000);
+    
+    
+             document.getElementById('titlereq').innerHTML="<b> Your clock is behind we need real Time operation</u> \n Please set the right Time</b>"
+             
+             
+              document.getElementById('titlereq').style.color="red";
+              
+               document.getElementById('sendrqst').style.display='none'
+              document.getElementById(' pays').style.display='none'
+              document.getElementById('intemail').style.display='none'
+              document.getElementById('mail').style.display='none'
+              document.getElementById('phocod').style.display='none'
+              document.getElementById('rqph').style.display='none'
+              document.getElementById('pswinf').style.display='none'
+              document.getElementById('rqsttxt').style.display='none'
+              document.getElementById('sendrqst').style.display='none'
+              
+             
+    }
+       
+       
+     } else{
+
+setInterval(function () {
+document.getElementById('id01CTR').style.display='block'
+
+}, 1000);
+  var lascountpay=localStorage.getItem("lastcountry"); 
+       if(lascountpay=="saved2" ) {
+
+        
+        document.getElementById('titlereq').innerHTML="<b>Your country is not supported by our Platform. Wait for<u> the answer on your email</u> as the request has been sent</b>"
+        
+        document.getElementById('titlereq').style.color="red";
+        document.getElementById('id01CTR').style.display='block'
+        document.getElementById("pays").disabled = true;
+        document.getElementById("mail").disabled = true;
+        document.getElementById("rqph").disabled = true;
+        document.getElementById("rqsttxt").disabled = true;
+        document.getElementById('sendrqst').style.display='none'
+       
+         
+       } else {
+
+        document.getElementById("pays").disabled = false;
+        document.getElementById("mail").disabled = false;
+        document.getElementById("rqph").disabled = false;
+        document.getElementById("rqsttxt").disabled = false;
+        document.getElementById('sendrqst').style.display='block'
+         document.getElementById('id01CTR').style.display='block'
+
+       }
+     }
+     
+    }
+</script>
+
+</body>
 </html>
