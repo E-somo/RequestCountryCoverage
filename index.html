@@ -1,172 +1,31 @@
-<!DOCTYPE html>
-<html>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-/* Set a style for all buttons */
-buttonCTR {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-buttonCTR:hover {
-  opacity: 0.8;
-}
-
-/* Extra styles for the cancel buttonCTR */
-.cancelbtnCTR {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-/* Center the image and position the close buttonCTR */
-.imgcontainerCtr {
-  text-align: center;
-  margin: 24px 0 12px 0;
-  position: relative;
-}
-
-imgctr.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-.containerCTR {
-  padding: 16px;
-}
-
-span.pswCTR{
-  float: right;
-  padding-top: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close buttonCTR (x) */
-.close {
-  position: absolute;
-  right: 25px;
-  top: 0;
-  color: #000;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
-}
-  
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
-}
-
-/* Change styles for span and cancel buttonCTR on extra small screens */
-@media screen and (max-width: 300px) {
-  span.pswCTR{
-     display: block;
-     float: none;
-  }
-  .cancelbtnCTR {
-     width: 100%;
-  }
-}
-</style>
+    <title>Interactive Quiz</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        #examDropdown {
+            display: none; /* Initially hide the select element */
+        }
+    </style>
 </head>
 <body>
+<body>  
 
-<div id="id01CTR" class="modal">
-  
-  <form class="modal-content animate" action="/action_page.php" method="post">
-    <div class="imgcontainerCtr">
-      <span onclick="document.getElementById('id01CTR').style.display='none'" class="close" title="Close Modal">&times;</span>
-     
-    </div>
-
-    <div class="containerCTR">
-    <br>
-      <label id="titlereq"for="uname"><b>Your country is not supported by our Platform(Igihugu murimo ntabwo platfom yacu ihagera)</b> <br>  please send a request for admission of your area( Andika ubusabe maze tucyongere mu bihugu tugeramo) <br> <br> write down your country (Andika igihugu urimo)</label>
-      <input type="text" id="pays"placeholder="Enter your country" name="uname" required>
-
-      <label for="psw"><b>Enter your E-mail( Imeli yanyu) </b></label>
-      <input type="text" id="mail" placeholder="Enter E-mal here" name="psw" required>
-      
-       <label for="psw"><b>Enter your phone number with international code(Telefone yanyu na code y'igihugu) </b></label>
-      <input type="text" id="rqph" placeholder="Enter your phone here" name="psw" required>
-       
-       <label for="psw"><b>Enter your message of interrest in our services(Ubutumwa busobanura impamvu mwifuje serivice zacu) </b></label>
-       <br>
-      <textarea  maxlength="160"  rows="4"  id="rqsttxt" name="entry.115509672" ></textarea>
-      
-      
-     
-    </div>
-
-    <div class="containerCTR" style="background-color:#f1f1f1">
-      <button type="button" id="sendrqst" onclick="sendReQ()" class="cancelbtn">Submit</button>
-     
-    </div>
-  </form>
-</div>
-
-<script>
-
-var _0x685e=["\x76\x61\x6C\x75\x65","\x70\x61\x79\x73","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x0A\x20\x0A","\x6D\x61\x69\x6C","\x72\x71\x73\x74\x74\x78\x74","\x72\x71\x70\x68","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x6F\x63\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x66\x6F\x72\x6D\x73\x2F\x64\x2F\x65\x2F\x31\x46\x41\x49\x70\x51\x4C\x53\x65\x55\x45\x61\x48\x2D\x4D\x44\x5A\x51\x63\x78\x33\x4A\x72\x6C\x42\x6F\x78\x66\x5F\x32\x64\x54\x6B\x6B\x49\x32\x76\x4F\x34\x5A\x30\x51\x57\x67\x64\x68\x48\x44\x44\x45\x75\x49\x54\x77\x48\x41\x2F\x66\x6F\x72\x6D\x52\x65\x73\x70\x6F\x6E\x73\x65\x3F","\x50\x4F\x53\x54","\x78\x6D\x6C","\x52\x65\x71\x75\x65\x73\x74\x20\x57\x65\x6C\x6C\x20\x73\x65\x6E\x74\x20\x20\x55\x62\x75\x73\x61\x62\x65\x20\x62\x77\x6F\x68\x65\x72\x65\x6A\x77\x65\x20\x6E\x65\x7A\x61","\x6C\x61\x73\x74\x63\x6F\x75\x6E\x74\x72\x79","\x73\x61\x76\x65\x64\x32","\x73\x65\x74\x49\x74\x65\x6D","\x64\x69\x73\x70\x6C\x61\x79","\x73\x74\x79\x6C\x65","\x73\x65\x6E\x64\x72\x71\x73\x74","\x6E\x6F\x6E\x65","\x61\x6A\x61\x78","","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x77\x6F\x72\x6C\x64\x74\x69\x6D\x65\x61\x70\x69\x2E\x6F\x72\x67\x2F\x61\x70\x69\x2F\x69\x70","\x6C\x6F\x67","\x64\x61\x74\x65\x74\x69\x6D\x65","\x74\x69\x6D\x65\x7A\x6F\x6E\x65","\x64\x61\x74\x65\x20\x61\x6E\x64\x20\x6F\x66\x66\x73\x65\x74\x0A","\x0A","\x75\x74\x63\x5F\x6F\x66\x66\x73\x65\x74","\x0A\x20\x7A\x6F\x6E\x69\x6E\x67\x20\x0A","\x6C\x61\x73\x74\x6E\x61\x6D\x65","\x73\x6C\x69\x63\x65","\x6C\x61\x73\x74\x64\x61\x74\x65","\x67\x65\x74\x49\x74\x65\x6D","\x41\x66\x72\x69\x63\x61\x2F\x4B\x69\x67\x61\x6C\x69\x6B","\x47\x6F\x6F\x64\x20\x63\x6F\x75\x6E\x74\x72\x79","\x6C\x61\x73\x74\x20\x64\x61\x74\x65\x3E\x3E","\x67\x65\x74\x46\x75\x6C\x6C\x59\x65\x61\x72","\x67\x65\x74\x4D\x6F\x6E\x74\x68","\x30","\x70\x61\x64\x53\x74\x61\x72\x74","\x67\x65\x74\x44\x61\x74\x65","\x69\x64\x30\x31\x43\x54\x52","\x62\x6C\x6F\x63\x6B","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x74\x69\x74\x6C\x65\x72\x65\x71","\x3C\x62\x3E\x20\x59\x6F\x75\x72\x20\x63\x6C\x6F\x63\x6B\x20\x69\x73\x20\x62\x65\x68\x69\x6E\x64\x20\x77\x65\x20\x6E\x65\x65\x64\x20\x72\x65\x61\x6C\x20\x54\x69\x6D\x65\x20\x6F\x70\x65\x72\x61\x74\x69\x6F\x6E\x3C\x2F\x75\x3E\x20\x0A\x20\x50\x6C\x65\x61\x73\x65\x20\x73\x65\x74\x20\x74\x68\x65\x20\x72\x69\x67\x68\x74\x20\x54\x69\x6D\x65\x3C\x2F\x62\x3E","\x63\x6F\x6C\x6F\x72","\x72\x65\x64","\x20\x70\x61\x79\x73","\x69\x6E\x74\x65\x6D\x61\x69\x6C","\x70\x68\x6F\x63\x6F\x64","\x70\x73\x77\x69\x6E\x66","\x3C\x62\x3E\x59\x6F\x75\x72\x20\x63\x6F\x75\x6E\x74\x72\x79\x20\x69\x73\x20\x6E\x6F\x74\x20\x73\x75\x70\x70\x6F\x72\x74\x65\x64\x20\x62\x79\x20\x6F\x75\x72\x20\x50\x6C\x61\x74\x66\x6F\x72\x6D\x2E\x20\x57\x61\x69\x74\x20\x66\x6F\x72\x3C\x75\x3E\x20\x74\x68\x65\x20\x61\x6E\x73\x77\x65\x72\x20\x6F\x6E\x20\x79\x6F\x75\x72\x20\x65\x6D\x61\x69\x6C\x3C\x2F\x75\x3E\x20\x61\x73\x20\x74\x68\x65\x20\x72\x65\x71\x75\x65\x73\x74\x20\x68\x61\x73\x20\x62\x65\x65\x6E\x20\x73\x65\x6E\x74\x3C\x2F\x62\x3E","\x64\x69\x73\x61\x62\x6C\x65\x64"];var fullinfo;function sendReQ(){var _0x5c15x3=fullinfo;var _0x5c15x4=document[_0x685e[2]](_0x685e[1])[_0x685e[0]]+ _0x685e[3]+ document[_0x685e[2]](_0x685e[4])[_0x685e[0]];var _0x5c15x5=document[_0x685e[2]](_0x685e[5])[_0x685e[0]]+ _0x685e[3]+ document[_0x685e[2]](_0x685e[6])[_0x685e[0]];$[_0x685e[18]]({url:_0x685e[7],data:{"\x65\x6E\x74\x72\x79\x2E\x37\x38\x37\x30\x30\x38\x30\x37":_0x5c15x3,"\x65\x6E\x74\x72\x79\x2E\x39\x37\x38\x32\x33\x32\x32\x39\x39":_0x5c15x4,"\x65\x6E\x74\x72\x79\x2E\x35\x39\x32\x33\x33\x33\x32\x30\x33":_0x5c15x5},type:_0x685e[8],dataType:_0x685e[9],success:function(_0x5c15x6){},error:function(_0x5c15x7,_0x5c15x8,_0x5c15x9){alert(_0x685e[10]);localStorage[_0x685e[13]](_0x685e[11],_0x685e[12]);document[_0x685e[2]](_0x685e[16])[_0x685e[15]][_0x685e[14]]= _0x685e[17]}});return false}var rslt=_0x685e[19];var rslt2=_0x685e[19];$[_0x685e[18]]({url:_0x685e[20],success:function(_0x5c15xc){console[_0x685e[21]](_0x5c15xc);rslt= _0x5c15xc[_0x685e[22]];rslt2= _0x5c15xc[_0x685e[23]];fullinfo= _0x685e[24]+ rslt+ _0x685e[25]+ _0x5c15xc[_0x685e[26]]+ _0x685e[27]+ rslt2;if(rslt2!= _0x685e[19]){localStorage[_0x685e[13]](_0x685e[28],rslt2)};const _0x5c15xd=rslt[_0x685e[29]](0,4);const _0x5c15xe=rslt[_0x685e[29]](5,7);const _0x5c15xf=rslt[_0x685e[29]](8,10);localStorage[_0x685e[13]](_0x685e[30],_0x5c15xd+ _0x5c15xe+ _0x5c15xf)}});setTimeout(gfg,3000);function gfg(){var _0x5c15x11=localStorage[_0x685e[31]](_0x685e[28]);var _0x5c15x12=localStorage[_0x685e[31]](_0x685e[30]);if(rslt2== _0x685e[32]|| _0x5c15x11== _0x685e[32]){alert(_0x685e[33]);alert(_0x685e[34]+ _0x5c15x12);var _0x5c15x13= new Date()[_0x685e[35]]();var _0x5c15x14= new Date();var _0x5c15x15=_0x5c15x14[_0x685e[36]]()+ 1;let _0x5c15x16=_0x5c15x15.toString()[_0x685e[38]](2,_0x685e[37]);var _0x5c15x17=_0x5c15x14[_0x685e[39]]();let _0x5c15x18=_0x5c15x17.toString()[_0x685e[38]](2,_0x685e[37]);var _0x5c15x19=_0x685e[19]+ _0x5c15x13+ _0x5c15x16+ _0x5c15x18;var _0x5c15x1a=(parseInt(_0x5c15x19)- parseInt(_0x5c15x12));if(_0x5c15x1a<  -2){document[_0x685e[2]](_0x685e[40])[_0x685e[15]][_0x685e[14]]= _0x685e[41];document[_0x685e[2]](_0x685e[43])[_0x685e[42]]= _0x685e[44];document[_0x685e[2]](_0x685e[43])[_0x685e[15]][_0x685e[45]]= _0x685e[46];document[_0x685e[2]](_0x685e[16])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[47])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[48])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[4])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[49])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[6])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[50])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[5])[_0x685e[15]][_0x685e[14]]= _0x685e[17];document[_0x685e[2]](_0x685e[16])[_0x685e[15]][_0x685e[14]]= _0x685e[17]}}else {setInterval(function(){document[_0x685e[2]](_0x685e[40])[_0x685e[15]][_0x685e[14]]= _0x685e[41]},1000);var _0x5c15x1b=localStorage[_0x685e[31]](_0x685e[11]);if(_0x5c15x1b== _0x685e[12]){document[_0x685e[2]](_0x685e[43])[_0x685e[42]]= _0x685e[51];document[_0x685e[2]](_0x685e[43])[_0x685e[15]][_0x685e[45]]= _0x685e[46];document[_0x685e[2]](_0x685e[40])[_0x685e[15]][_0x685e[14]]= _0x685e[41];document[_0x685e[2]](_0x685e[1])[_0x685e[52]]= true;document[_0x685e[2]](_0x685e[4])[_0x685e[52]]= true;document[_0x685e[2]](_0x685e[6])[_0x685e[52]]= true;document[_0x685e[2]](_0x685e[5])[_0x685e[52]]= true;document[_0x685e[2]](_0x685e[16])[_0x685e[15]][_0x685e[14]]= _0x685e[17]}else {document[_0x685e[2]](_0x685e[1])[_0x685e[52]]= false;document[_0x685e[2]](_0x685e[4])[_0x685e[52]]= false;document[_0x685e[2]](_0x685e[6])[_0x685e[52]]= false;document[_0x685e[2]](_0x685e[5])[_0x685e[52]]= false;document[_0x685e[2]](_0x685e[16])[_0x685e[15]][_0x685e[14]]= _0x685e[41];document[_0x685e[2]](_0x685e[40])[_0x685e[15]][_0x685e[14]]= _0x685e[41]}}}
-
-</script>
-
+    
+    <h1>Select an Exam</h1>
+    <select id="examDropdown" onchange="updateCollsel()">
+    </select>
+    <p id="collselValue" hidden >collsel = 0</p>
+</body>
+    <div id="quiz-container"></div>
+    
+    
+    
+    
+    <script type="text/javascript"> 
+    
+        
+var _0x36d7cd=_0x4b4e;(function(_0x5c77d3,_0x46fb3f){var _0x468ce1=_0x4b4e,_0x151e82=_0x5c77d3();while(!![]){try{var _0x117205=parseInt(_0x468ce1(0x139))/0x1+parseInt(_0x468ce1(0x152))/0x2+parseInt(_0x468ce1(0x13a))/0x3+parseInt(_0x468ce1(0x143))/0x4*(-parseInt(_0x468ce1(0x16d))/0x5)+-parseInt(_0x468ce1(0x145))/0x6+parseInt(_0x468ce1(0x13b))/0x7*(-parseInt(_0x468ce1(0x16a))/0x8)+-parseInt(_0x468ce1(0x133))/0x9;if(_0x117205===_0x46fb3f)break;else _0x151e82['push'](_0x151e82['shift']());}catch(_0x45693b){_0x151e82['push'](_0x151e82['shift']());}}}(_0x68f2,0xd29f0));async function showInput(){var _0x28e659=_0x4b4e;const {value:_0x2bcc1d}=await Swal[_0x28e659(0x136)]({'title':_0x28e659(0x153),'input':'text','inputLabel':_0x28e659(0x146),'inputPlaceholder':_0x28e659(0x140),'allowOutsideClick':![],'showCancelButton':!![]});_0x2bcc1d===_0x28e659(0x150)?document[_0x28e659(0x130)](_0x28e659(0x142))[_0x28e659(0x155)][_0x28e659(0x148)]='block':alert('\x20please\x20this\x20\x20product\x20is\x20\x20of\x20T-smart\x20solution\x20');}showInput();function _0x4b4e(_0x3ea2db,_0x54b365){var _0x68f293=_0x68f2();return _0x4b4e=function(_0x4b4ec5,_0x9f268a){_0x4b4ec5=_0x4b4ec5-0x12f;var _0x559e74=_0x68f293[_0x4b4ec5];return _0x559e74;},_0x4b4e(_0x3ea2db,_0x54b365);}function _0x68f2(){var _0x1098cd=['25200rdxgRP','</li><br>','</ol>','4676675BMorQm','<br>\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<strong>Correct\x20Answer:</strong>\x20','getNumberOfRows','onload','getElementById','Error\x20in\x20query:\x20','length','13156893vMNlhl','</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22radio\x22\x20id=\x22option5\x22\x20name=\x22quiz\x22\x20value=\x225\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22option5\x22>','60%','fire','showValidationMessage','loaded','1306423CygVTN','4060644EETYew','1267pYBZsW','</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22radio\x22\x20id=\x22option4\x22\x20name=\x22quiz\x22\x20value=\x224\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22option4\x22>','You\x20need\x20to\x20choose\x20an\x20option!','push','select\x20the\x20exam','Enter\x20AtM','</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22radio\x22\x20id=\x22option2\x22\x20name=\x22quiz\x22\x20value=\x222\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22option2\x22>','examDropdown','4kQAnNv','getValue','134424hgbDRz','Number','load','display','corechart','collselValue','createElement','isConfirmed','getDataTable','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>','answer','6702','</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22radio\x22\x20id=\x22option3\x22\x20name=\x22quiz\x22\x20value=\x223\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22option3\x22>','2384998lmdUUT','Enter\x20a\x20number',':</strong>\x20','style','<br>\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<strong>Your\x20Answer:</strong>\x20','selected','querySelector','options','<li><strong>Question\x20','innerText','https://docs.google.com/spreadsheets/d/133wNh6NkNMOkGIv33y2dkajMgdAhvF6a0wVw46yAS2I/gviz/tq?gid=0','setOnLoadCallback','Exam\x20','value','send','isError','min','current','text','<h3>Quiz\x20Finished!\x20Your\x20score\x20is\x20','then','forEach','getMessage','add'];_0x68f2=function(){return _0x1098cd;};return _0x68f2();}var collsel=0x0;function populateDropdown(){var _0x1fa13f=_0x4b4e,_0x1cd18e=document[_0x1fa13f(0x130)]('examDropdown');for(var _0x2117df=0x0;_0x2117df<=0x28;_0x2117df++){var _0x5e3fbc=document[_0x1fa13f(0x14b)]('option');_0x5e3fbc[_0x1fa13f(0x15f)]=(_0x2117df-0x1)*0x14,_0x5e3fbc[_0x1fa13f(0x164)]=_0x1fa13f(0x15e)+_0x2117df,_0x2117df===0x0?(_0x5e3fbc['text']=_0x1fa13f(0x13f),_0x1cd18e[_0x1fa13f(0x169)](_0x5e3fbc)):_0x1cd18e[_0x1fa13f(0x169)](_0x5e3fbc);}}function updateCollsel(){var _0x1a65ae=_0x4b4e,_0x3f7598=document[_0x1a65ae(0x130)]('examDropdown'),_0x339f6d=_0x3f7598[_0x1a65ae(0x15f)];document[_0x1a65ae(0x130)](_0x1a65ae(0x14a))[_0x1a65ae(0x15b)]='collsel\x20=\x20'+_0x339f6d,alert(_0x1a65ae(0x138)+_0x339f6d),collsel=_0x339f6d*0x1+0x0,loaderthem();}window[_0x36d7cd(0x12f)]=function(){populateDropdown();};function loaderthem(){var _0x564e1e=_0x36d7cd;google['charts'][_0x564e1e(0x147)](_0x564e1e(0x163),{'packages':[_0x564e1e(0x149)]}),google['charts'][_0x564e1e(0x15d)](_0x53a85f);function _0x53a85f(){var _0x3fa0f2=_0x564e1e,_0xfc4515=new google['visualization']['Query'](_0x3fa0f2(0x15c));_0xfc4515[_0x3fa0f2(0x160)](_0x1f26f8);}function _0x1f26f8(_0x116b5c){var _0x5d4027=_0x564e1e;if(_0x116b5c[_0x5d4027(0x161)]()){alert(_0x5d4027(0x131)+_0x116b5c[_0x5d4027(0x168)]()+'\x20'+_0x116b5c['getDetailedMessage']());return;}var _0x368b9b=_0x116b5c[_0x5d4027(0x14d)](),_0x38a326=[];for(var _0x3a6f97=collsel;_0x3a6f97<_0x368b9b[_0x5d4027(0x16f)]();_0x3a6f97++){var _0x152122={'text':_0x368b9b['getValue'](_0x3a6f97,0x1),'options':[_0x368b9b['getValue'](_0x3a6f97,0x3),_0x368b9b['getValue'](_0x3a6f97,0x4),_0x368b9b[_0x5d4027(0x144)](_0x3a6f97,0x5),_0x368b9b[_0x5d4027(0x144)](_0x3a6f97,0x6),_0x368b9b['getValue'](_0x3a6f97,0x7)],'answer':_0x368b9b[_0x5d4027(0x144)](_0x3a6f97,0x8)};_0x38a326[_0x5d4027(0x13e)](_0x152122);}_0x1cde7a(_0x38a326);}function _0x1cde7a(_0x10df72){let _0x46b543=0x0,_0x30e2c0=0x0,_0x15494f=[];function _0x4cbd1f(){var _0x14dc96=_0x4b4e;if(_0x30e2c0>=0x14||_0x30e2c0>=_0x10df72[_0x14dc96(0x132)]){_0xe584bc();return;}let _0x5c783b=_0x10df72[_0x30e2c0];Swal['fire']({'title':'Question\x20'+(_0x30e2c0+0x1),'allowOutsideClick':![],'html':_0x14dc96(0x14e)+_0x5c783b[_0x14dc96(0x164)]+'</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22radio\x22\x20id=\x22option1\x22\x20name=\x22quiz\x22\x20value=\x221\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22option1\x22>'+_0x5c783b['options'][0x0]+_0x14dc96(0x141)+_0x5c783b[_0x14dc96(0x159)][0x1]+_0x14dc96(0x151)+_0x5c783b[_0x14dc96(0x159)][0x2]+_0x14dc96(0x13c)+_0x5c783b[_0x14dc96(0x159)][0x3]+_0x14dc96(0x134)+_0x5c783b[_0x14dc96(0x159)][0x4]+'</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','preConfirm':()=>{var _0x5dfcc3=_0x14dc96;const _0x521065=document[_0x5dfcc3(0x158)]('input[name=\x22quiz\x22]:checked');if(!_0x521065)return Swal[_0x5dfcc3(0x137)](_0x5dfcc3(0x13d)),![];return _0x521065[_0x5dfcc3(0x15f)];}})[_0x14dc96(0x166)](_0x3b7716=>{var _0x530358=_0x14dc96;if(_0x3b7716[_0x530358(0x14c)]){let _0x49424f=parseInt(_0x3b7716['value']);_0x15494f[_0x530358(0x13e)]({'question':_0x5c783b[_0x530358(0x164)],'selected':_0x49424f,'correct':_0x5c783b[_0x530358(0x14f)]}),_0x49424f==_0x5c783b[_0x530358(0x14f)]&&_0x46b543++,_0x30e2c0++,_0x4cbd1f();}});}function _0xe584bc(){var _0x20b511=_0x4b4e;let _0x554546=_0x20b511(0x165)+_0x46b543+'\x20out\x20of\x20'+Math[_0x20b511(0x162)](0x14,_0x10df72[_0x20b511(0x132)])+'</h3><ol>';_0x15494f[_0x20b511(0x167)]((_0x206c4b,_0x10f4bf)=>{var _0x433df3=_0x20b511;_0x554546+=_0x433df3(0x15a)+(_0x10f4bf+0x1)+_0x433df3(0x154)+_0x206c4b['question']+_0x433df3(0x156)+_0x206c4b[_0x433df3(0x157)]+_0x433df3(0x16e)+_0x206c4b['correct']+_0x433df3(0x16b);}),_0x554546+=_0x20b511(0x16c),Swal[_0x20b511(0x136)]({'title':'Results','allowOutsideClick':![],'html':_0x554546,'width':_0x20b511(0x135),'allowOutsideClick':![]});}_0x4cbd1f();}}
+    </script>
 </body>
 </html>
